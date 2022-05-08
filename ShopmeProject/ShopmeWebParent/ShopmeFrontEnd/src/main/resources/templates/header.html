@@ -31,7 +31,8 @@
                     class="uil uil-search"></i></a></li>
               <li class="nav-item">
                 <a class="nav-link position-relative d-flex flex-row align-items-center" data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvas-cart">
+                  data-bs-target="#offcanvas-cart"
+                  >
                   <i class="uil uil-shopping-cart"></i>
                   <span class="badge badge-cart bg-primary">3</span>
                 </a>
@@ -172,7 +173,7 @@
               <span>Subtotal:</span>
               <span class="h6 mb-0">$135.99</span>
             </div>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-start rounded w-100 mb-4"><i
+            <a th:href="@{/cart}" class="btn btn-primary btn-icon btn-icon-start rounded w-100 mb-4"><i
                 class="uil uil-credit-card fs-18"></i> Checkout</a>
             <p class="fs-14 mb-0">Free shipping on all orders over $50</p>
           </div>

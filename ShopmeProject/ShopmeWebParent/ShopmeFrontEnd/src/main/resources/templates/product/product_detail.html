@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: html_head('none')"></head>
 
@@ -113,7 +113,7 @@
                 <div class="col-lg-9 d-flex flex-row pt-2" style="padding-left: 0;">
                   
                   <div class="flex-grow-1 mx-2">
-                    <button class="btn btn-primary btn-icon btn-icon-start rounded w-100 flex-grow-1"><i class="uil uil-shopping-bag"></i> Add to Cart</button>
+                    <input id="buttonAdd2Cart" type="button" class="btn btn-primary btn-icon btn-icon-start rounded w-100 flex-grow-1" value="Add to cart" />
                   </div>
                   <div>
                     <button class="btn btn-block btn-red btn-icon rounded px-3 w-100 h-100"><i class="uil uil-heart"></i></button>
@@ -570,6 +570,24 @@
     <script th:src="@{/assets/js/theme.js}"></script>
     <script th:src="@{/assets/js/quantity_control.js}"></script>
     <script th:src="@{/assets/js/common_modal.js}"></script>
+    <script th:src="@{/assets/js/add_to_cart.js}"></script>
+
+    <script type="text/javascript">
+      contextPath = "[[@{/}]]";
+      productId = "[[${product.id}]]";
+      var csrfHeaderName = "[[${_csrf.headerName}]]";
+	    var csrfValue = "[[${_csrf.token}]]";	
+
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#logoutLink").on("click", function (e) {
+          e.preventDefault();
+          document.logoutForm.submit();
+        });
+      });
+    </script>
 </body>
 
 </html>

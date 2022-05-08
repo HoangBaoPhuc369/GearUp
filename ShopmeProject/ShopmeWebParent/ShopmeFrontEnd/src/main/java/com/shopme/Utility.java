@@ -42,23 +42,19 @@ public class Utility {
 		return mailSender;
 	}
 	
-//	public static String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
-//		Object principal = request.getUserPrincipal();
-//		if (principal == null) return null;
-//		
-//		String customerEmail = null;
-//		
-//		if (principal instanceof UsernamePasswordAuthenticationToken 
-//				|| principal instanceof RememberMeAuthenticationToken) {
-//			customerEmail = request.getUserPrincipal().getName();
-//		} else if (principal instanceof OAuth2AuthenticationToken) {
-//			OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
-//			CustomerOAuth2User oauth2User = (CustomerOAuth2User) oauth2Token.getPrincipal();
-//			customerEmail = oauth2User.getEmail();
-//		}
-//		
-//		return customerEmail;
-//	}	
+	public static String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
+		Object principal = request.getUserPrincipal();
+		if (principal == null) return null;
+		
+		String customerEmail = null;
+		
+		if (principal instanceof UsernamePasswordAuthenticationToken 
+				|| principal instanceof RememberMeAuthenticationToken) {
+			customerEmail = request.getUserPrincipal().getName();
+		}
+		
+		return customerEmail;
+	}	
 	
 //	public static String formatCurrency(float amount, CurrencySettingBag settings) {
 //		String symbol = settings.getSymbol();

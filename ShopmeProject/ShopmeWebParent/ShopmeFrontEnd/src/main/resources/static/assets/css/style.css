@@ -26,11 +26,16 @@
 }
 
 .plus-n-minus-btn {
-  width: 3.5rem;
-  height: 2.5rem;
+  width: 2.5rem;
+  height: 2rem;
   border-radius: 0;
 }
 
 .font-size-1rem {
   font-size: 1rem;
+}
+
+.page-link {
+  width: 2rem;
+  height: 2rem;
 }
