@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head('none')"></head>
+
+<body>
+    <div class="content-wrapper">
+        <th:block sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+                <input type="submit" value="Logout" />
+            </form>
+        </th:block>
+        <div th:replace="header :: header"></div>
+        <!-- /header -->
+        <section class="wrapper bg-gray">
+            <div class="container py-3 py-md-5">
+                <nav class="d-inline-block" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="#">Cart</a></li>
+                        <li class="breadcrumb-item active text-muted" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+                <!-- /nav -->
+            </div>
+            <!-- /.container -->
+        </section>
+        <!-- /section -->
+        <section class="wrapper bg-light">
+            <div class="container pt-12 pt-md-14 pb-14 pb-md-16">
+                <div class="row gx-md-8 gx-xl-12 gy-12">
+                    <div class="col-lg-8">
+                       
+                        <h3 class="mb-4">Billing address</h3>
+                        <form class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="firstName" placeholder="First name"
+                                            value="" required>
+                                        <label for="firstName" class="form-label">First name</label>
+                                        <div class="invalid-feedback"> Valid first name is required. </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="lastName" placeholder="Last name"
+                                            value="" required>
+                                        <label for="lastName" class="form-label">Last name</label>
+                                        <div class="invalid-feedback"> Valid last name is required. </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email"
+                                            placeholder="you@example.com" required>
+                                        <label for="email" class="form-label">Email</label>
+                                        <div class="invalid-feedback"> Please enter a valid email address for shipping
+                                            updates. </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                            required>
+                                        <label for="address" class="form-label">Address</label>
+                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <hr class="mt-7 mb-6">
+                           
+                            <hr class="mt-7 mb-6">
+                            <h3 class="mb-4">Payment</h3>
+                            <div class="mt-3 mb-6">
+                                <div class="form-check">
+                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input"
+                                        checked required>
+                                    <label class="form-check-label" for="credit">COD</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input"
+                                        required>
+                                    <label class="form-check-label" for="debit">Credit card</label>
+                                </div>
+                                
+                            </div>
+                           
+                        </form>
+                    </div>
+                    <!-- /column -->
+                    <div class="col-lg-4">
+                       
+                        <div class="table-responsive">
+                            <table class="table table-order">
+                                <tbody>
+                                    <tr>
+                                        <td class="ps-0"><strong class="text-dark">Grand Total</strong></td>
+                                        <td class="pe-0 text-end">
+                                            <p class="price text-dark fw-bold">$152.79</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded w-100 mt-4">Place Order</a>
+                    </div>
+                    <!-- /column -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </section>
+        <!-- /section -->
+        <div class="modal fade" id="modal-signin" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h2 class="mb-3 text-start">Welcome Back</h2>
+                        <p class="lead mb-6 text-start">Fill your email and password to sign in.</p>
+                        <form class="text-start mb-3">
+                            <div class="form-floating mb-4">
+                                <input type="email" class="form-control" placeholder="Email" id="loginEmail">
+                                <label for="loginEmail">Email</label>
+                            </div>
+                            <div class="form-floating password-field mb-4">
+                                <input type="password" class="form-control" placeholder="Password" id="loginPassword">
+                                <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                                <label for="loginPassword">Password</label>
+                            </div>
+                            <a class="btn btn-primary rounded-pill btn-login w-100 mb-2">Sign In</a>
+                        </form>
+                        <!-- /form -->
+                        <p class="mb-1"><a href="#" class="hover">Forgot Password?</a></p>
+                        <p class="mb-0">Don't have an account? <a href="#" data-bs-target="#modal-signup"
+                                data-bs-toggle="modal" data-bs-dismiss="modal" class="hover">Sign up</a></p>
+                        <div class="divider-icon my-4">or</div>
+                        <nav class="nav social justify-content-center text-center">
+                            <a href="#" class="btn btn-circle btn-sm btn-google"><i class="uil uil-google"></i></a>
+                            <a href="#" class="btn btn-circle btn-sm btn-facebook-f"><i
+                                    class="uil uil-facebook-f"></i></a>
+                            <a href="#" class="btn btn-circle btn-sm btn-twitter"><i class="uil uil-twitter"></i></a>
+                        </nav>
+                        <!--/.social -->
+                    </div>
+                    <!--/.modal-content -->
+                </div>
+                <!--/.modal-body -->
+            </div>
+            <!--/.modal-dialog -->
+        </div>
+        <!--/.modal -->
+        <div class="modal fade" id="modal-signup" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h2 class="mb-3 text-start">Sign up to Sandbox</h2>
+                        <p class="lead mb-6 text-start">Registration takes less than a minute.</p>
+                        <form class="text-start mb-3">
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" placeholder="Name" id="loginName">
+                                <label for="loginName">Name</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="email" class="form-control" placeholder="Email" id="loginEmail">
+                                <label for="loginEmail">Email</label>
+                            </div>
+                            <div class="form-floating password-field mb-4">
+                                <input type="password" class="form-control" placeholder="Password" id="loginPassword">
+                                <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                                <label for="loginPassword">Password</label>
+                            </div>
+                            <div class="form-floating password-field mb-4">
+                                <input type="password" class="form-control" placeholder="Confirm Password"
+                                    id="loginPasswordConfirm">
+                                <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                                <label for="loginPasswordConfirm">Confirm Password</label>
+                            </div>
+                            <a class="btn btn-primary rounded-pill btn-login w-100 mb-2">Sign Up</a>
+                        </form>
+                        <!-- /form -->
+                        <p class="mb-0">Already have an account? <a href="#" data-bs-target="#modal-signin"
+                                data-bs-toggle="modal" data-bs-dismiss="modal" class="hover">Sign in</a></p>
+                        <div class="divider-icon my-4">or</div>
+                        <nav class="nav social justify-content-center text-center">
+                            <a href="#" class="btn btn-circle btn-sm btn-google"><i class="uil uil-google"></i></a>
+                            <a href="#" class="btn btn-circle btn-sm btn-facebook-f"><i
+                                    class="uil uil-facebook-f"></i></a>
+                            <a href="#" class="btn btn-circle btn-sm btn-twitter"><i class="uil uil-twitter"></i></a>
+                        </nav>
+                        <!--/.social -->
+                    </div>
+                    <!--/.modal-content -->
+                </div>
+                <!--/.modal-body -->
+            </div>
+            <!--/.modal-dialog -->
+        </div>
+        <!--/.modal -->
+        <section class="wrapper bg-gray">
+            <div class="container py-12 py-md-14">
+                <div class="row gx-lg-8 gx-xl-12 gy-8">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <img src="./assets/img/icons/solid/shipment.svg"
+                                    class="svg-inject icon-svg icon-svg-sm solid-mono text-navy me-4" alt="" />
+                            </div>
+                            <div>
+                                <h4 class="mb-1">Free Shipping</h4>
+                                <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget
+                                    lacinia odio sem.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/column -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <img src="./assets/img/icons/solid/push-cart.svg"
+                                    class="svg-inject icon-svg icon-svg-sm solid-mono text-navy me-4" alt="" />
+                            </div>
+                            <div>
+                                <h4 class="mb-1">30 Days Return</h4>
+                                <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget
+                                    lacinia odio sem.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/column -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <img src="./assets/img/icons/solid/verify.svg"
+                                    class="svg-inject icon-svg icon-svg-sm solid-mono text-navy me-4" alt="" />
+                            </div>
+                            <div>
+                                <h4 class="mb-1">2-Years Warranty</h4>
+                                <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget
+                                    lacinia odio sem.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/column -->
+                </div>
+                <!--/.row -->
+            </div>
+            <!-- /.container -->
+        </section>
+        <!-- /section -->
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="footer :: footer"></div>
+    <script th:src="@{/assets/js/plugins.js}"></script>
+    <script th:src="@{/assets/js/theme.js}"></script>
+    <script th:src="@{/assets/js/common_modal.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/shopping_cart.js}"></script>
+    <script th:src="@{/assets/js/jquery.number.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#logoutLink").on("click", function (e) {
+                e.preventDefault();
+                document.logoutForm.submit();
+            });
+        });
+    </script>
+</body>
+
+</html>

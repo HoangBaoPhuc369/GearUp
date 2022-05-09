@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shopme.Utility;
+import com.shopme.address.AddressService;
 import com.shopme.common.entity.CartItem;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.exception.CustomerNotFoundException;
@@ -17,7 +18,7 @@ import com.shopme.customer.CustomerService;
 
 //import com.shopme.ControllerHelper;
 //import com.shopme.address.AddressService;
-//import com.shopme.common.entity.Address;
+import com.shopme.common.entity.Address;
 //import com.shopme.common.entity.CartItem;
 //import com.shopme.common.entity.Customer;
 //import com.shopme.common.entity.ShippingRate;
@@ -27,7 +28,7 @@ import com.shopme.customer.CustomerService;
 public class ShoppingCartController {
 //	@Autowired private ControllerHelper controllerHelper;
 	@Autowired private ShoppingCartService cartService;
-//	@Autowired private AddressService addressService;
+	@Autowired private AddressService addressService;
 //	@Autowired private ShippingRateService shipService;
 	@Autowired private CustomerService customerService;
 	
@@ -47,12 +48,7 @@ public class ShoppingCartController {
 //		ShippingRate shippingRate = null;
 //		boolean usePrimaryAddressAsDefault = false;
 //		
-//		if (defaultAddress != null) {
-//			shippingRate = shipService.getShippingRateForAddress(defaultAddress);
-//		} else {
-//			usePrimaryAddressAsDefault = true;
-//			shippingRate = shipService.getShippingRateForCustomer(customer);
-//		}
+
 //		
 //		model.addAttribute("usePrimaryAddressAsDefault", usePrimaryAddressAsDefault);
 //		model.addAttribute("shippingSupported", shippingRate != null);
@@ -64,6 +60,15 @@ public class ShoppingCartController {
 		for (CartItem item : cartItems) {
 			estimatedTotal += item.getSubtotal();
 		}
+		
+		Address defaultAddress = addressService.getDefaultAddress(customer);
+		boolean usePrimaryAddressAsDefault = false;
+		
+		if (defaultAddress == null) {
+			usePrimaryAddressAsDefault = true;
+		}
+		
+		model.addAttribute("usePrimaryAddressAsDefault", usePrimaryAddressAsDefault);
 		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("estimatedTotal", estimatedTotal);
 		return "cart/shopping_cart";
