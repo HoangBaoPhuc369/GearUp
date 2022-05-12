@@ -123,6 +123,13 @@
                             placeholder="Phone number"  maxlength="15" minlength="8">
                         <label for="phoneNumber">Phone</label>
                       </div>
+
+                      <div class="form-floating mb-4">
+                        <input type="text" th:field="*{addressLine1}" class="form-control" 
+                            placeholder="Phone number"  maxlength="64" minlength="3">
+                        <label for="phoneNumber">Address</label>
+                      </div>
+
                       <button type="submit" class="btn btn-primary rounded-pill btn-login w-100 mb-2">Sign Up</button>
                     </form>
                     <!-- /form -->

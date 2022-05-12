@@ -213,7 +213,7 @@ public class Order  {
 		setFirstName(customer.getFirstName());
 		setLastName(customer.getLastName());
 		setPhoneNumber(customer.getPhoneNumber());
-		setAddress("222/333/8976 le loi");		
+		setAddress(customer.getAddressLine1());		
 	}
 
 	@Override
@@ -222,4 +222,48 @@ public class Order  {
 				+ ", customer=" + customer.getFullName() + "]";
 	}
 	
+	public boolean hasStatus(OrderStatus status) {
+		for (OrderTrack aTrack : orderTracks) {
+			if (aTrack.getStatus().equals(status)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	@Transient
+	public boolean isCOD() {
+		return paymentMethod.equals(PaymentMethod.COD);
+	}
+	
+	@Transient
+	public boolean isProcessing() {
+		return hasStatus(OrderStatus.PROCESSING);
+	}
+	
+	@Transient
+	public boolean isPicked() {
+		return hasStatus(OrderStatus.PICKED);
+	}
+	
+	@Transient
+	public boolean isShipping() {
+		return hasStatus(OrderStatus.SHIPPING);
+	}
+	
+	@Transient
+	public boolean isDelivered() {
+		return hasStatus(OrderStatus.DELIVERED);
+	}
+
+	@Transient
+	public boolean isReturnRequested() {
+		return hasStatus(OrderStatus.RETURN_REQUESTED);
+	}	
+	
+	@Transient
+	public boolean isReturned() {
+		return hasStatus(OrderStatus.RETURNED);
+	}	
 }

@@ -28,6 +28,10 @@ public class CustomerUserDetails implements UserDetails {
 	public String getUsername() {
 		return customer.getEmail();
 	}
+	
+	public String getAddress() {
+		return customer.getAddressLine1();
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -47,6 +51,14 @@ public class CustomerUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return customer.isEnabled();
+	}
+	
+	public String getFirstName() {
+		return customer.getFirstName();
+	}
+	
+	public String getLastName() {
+		return customer.getLastName();
 	}
 
 	public String getFullName() {

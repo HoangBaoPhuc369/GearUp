@@ -24,8 +24,8 @@ public class AddressRepositoryTests {
 	
 	@Test
 	public void testAddNew() {
-		Integer customerId = 5;
-		Integer countryId = 234; // USA
+		Integer customerId = 1;
+	
 		
 		Address newAddress = new Address();
 		newAddress.setCustomer(new Customer(customerId));

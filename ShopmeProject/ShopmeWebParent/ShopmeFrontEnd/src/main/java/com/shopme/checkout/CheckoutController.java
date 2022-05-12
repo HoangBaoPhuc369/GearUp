@@ -25,8 +25,7 @@ import com.shopme.common.entity.CartItem;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.entity.order.Order;
 import com.shopme.common.entity.order.PaymentMethod;
-
-
+import com.shopme.order.OrderService;
 import com.shopme.setting.EmailSettingBag;
 
 import com.shopme.setting.SettingService;
@@ -39,7 +38,7 @@ public class CheckoutController {
 	@Autowired private ControllerHelper controllerHelper;
 	@Autowired private AddressService addressService;
 	@Autowired private ShoppingCartService cartService;
-
+	@Autowired private OrderService orderService;
 	
 	@GetMapping("/checkout")
 	public String showCheckoutPage(Model model, HttpServletRequest request) {
@@ -75,14 +74,14 @@ public class CheckoutController {
 		
 		Address defaultAddress = addressService.getDefaultAddress(customer);
 		
-		
-		
+	
 				
 		List<CartItem> cartItems = cartService.listCartItems(customer);
 		CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems);
 		
 		
-		
+		orderService.createOrder(customer, defaultAddress, cartItems, paymentMethod, checkoutInfo);
+		cartService.deleteByCustomer(customer);
 		
 		return "checkout/order_completed";
 	}

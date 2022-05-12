@@ -123,7 +123,7 @@ public class UserRepositoryTests {
 	
 	@Test 
 	public void testEnableUser() {
-		Integer id = 3;
+		Integer id = 4;
 		repo.updateEnabledStatus(id, true);			
 		
 	}
