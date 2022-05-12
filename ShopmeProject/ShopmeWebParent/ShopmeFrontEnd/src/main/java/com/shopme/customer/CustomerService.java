@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.shopme.common.entity.Customer;
 
 import net.bytebuddy.utility.RandomString;
@@ -67,4 +66,22 @@ public class CustomerService {
 		}
 	}
 	
+	public void update(Customer customerInForm) {
+		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
+		
+		if (!customerInForm.getPassword().isEmpty()) {
+			String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
+			customerInForm.setPassword(encodedPassword);			
+		} else {
+			customerInForm.setPassword(customerInDB.getPassword());
+		}		
+		
+		customerInForm.setEnabled(customerInDB.isEnabled());
+		customerInForm.setCreatedTime(customerInDB.getCreatedTime());
+		customerInForm.setVerificationCode(customerInDB.getVerificationCode());
+		customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
+
+		
+		customerRepo.save(customerInForm);
+	}
 }

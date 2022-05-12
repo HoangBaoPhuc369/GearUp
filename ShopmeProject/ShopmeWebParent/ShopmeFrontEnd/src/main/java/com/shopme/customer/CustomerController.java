@@ -10,14 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.Utility;
 import com.shopme.common.entity.Customer;
+import com.shopme.security.CustomerUserDetails;
 import com.shopme.setting.EmailSettingBag;
 import com.shopme.setting.SettingService;
 
@@ -86,5 +90,54 @@ public class CustomerController {
 		return "register/" + (verified ? "verify_success" : "verify_fail");
 	}
 	
+	
+	@GetMapping("/account_details")
+	public String viewAccountDetails(Model model, HttpServletRequest request) {
+		String email = Utility.getEmailOfAuthenticatedCustomer(request);
+		Customer customer = customerService.getCustomerByEmail(email);
+		
+		model.addAttribute("customer", customer);
+		
+		return "customer/account_form";
+	}
+	
+	private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {
+		Object principal = request.getUserPrincipal();
+		
+		if (principal instanceof UsernamePasswordAuthenticationToken 
+				|| principal instanceof RememberMeAuthenticationToken) {
+			CustomerUserDetails userDetails = getCustomerUserDetailsObject(principal);
+			Customer authenticatedCustomer = userDetails.getCustomer();
+			authenticatedCustomer.setFirstName(customer.getFirstName());
+			authenticatedCustomer.setLastName(customer.getLastName());
+			
+		} 
+	}
+	
+	private CustomerUserDetails getCustomerUserDetailsObject(Object principal) {
+		CustomerUserDetails userDetails = null;
+		if (principal instanceof UsernamePasswordAuthenticationToken) {
+			UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+			userDetails = (CustomerUserDetails) token.getPrincipal();
+		} else if (principal instanceof RememberMeAuthenticationToken) {
+			RememberMeAuthenticationToken token = (RememberMeAuthenticationToken) principal;
+			userDetails = (CustomerUserDetails) token.getPrincipal();
+		}
+		
+		return userDetails;
+	}
+	
+	@PostMapping("/update_account_details")
+	public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
+			HttpServletRequest request) {
+		customerService.update(customer);
+		ra.addFlashAttribute("message", "Your account details have been updated.");
+		
+		updateNameForAuthenticatedCustomer(customer, request);
+		
+		
+		return "redirect:/";
+	}
+
 	
 }

@@ -9,6 +9,13 @@
       <input type="submit" value="Logout" />
     </form>
   </th:block>
+  <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show toast-msg" role="alert">
+    <span class="alert-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+    <span class="alert-text"><strong style="margin-right: 4px;">Success!</strong>[[${message}]]</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <div class="content-wrapper">
     <div th:replace="header :: header"></div>
 
@@ -31,7 +38,7 @@
           <div class="col-lg-9 order-lg-2">
             <div class="row align-items-center  position-relative zindex-1">
               <div class="col-md-7 col-xl-8 pe-xl-20">
-                <h2 class="display-6 mb-1">New Arrivals</h2>
+                <h2 class="display-6 mb-1" >New Arrivals</h2>
                 <p class="mb-0 text-muted">Showing 1–9 of 30 results</p>
               </div>
               <!--/column -->
@@ -187,19 +194,39 @@
     </section>
     <!-- /section -->
   </div>
+
+  <div class="modal fade " id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content text-center">
+        <div class="modal-body">
+          
+        </div>
+        <!--/.modal-content -->
+      </div>
+      <!--/.modal-body -->
+    </div>
+    <!--/.modal-dialog -->
+  </div>
+  <!--/.modal -->
+
   <!-- /.content-wrapper -->
   <div th:replace="footer :: footer"></div>
   <script th:src="@{/assets/js/plugins.js}"></script>
-  <script th:src="@{/assets/js/theme.js}"></script>
+
 
   <script type="text/javascript">
     $(document).ready(function () {
-      $("#logoutLink").on("click", function (e) {
+
+      $("#link_detail-use").on("click", function (e) {
         e.preventDefault();
-        document.logoutForm.submit();
+        linkDetailURL = $(this).attr("href");
+        $("#detailModal").modal("show").find(".modal-body").load(linkDetailURL);
       });
     });
+
   </script>
+
+
 </body>
 
 </html>

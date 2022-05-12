@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-</head>
-
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 
   <div th:fragment="header" th:remove="tag">
@@ -60,7 +57,7 @@
                     <div class="dropdown-lg-content">
                       <div>
                         <ul class="list-unstyled">
-                          <li><a class="dropdown-item" href="./projects.html">Profile</a></li>
+                          <li><a id="link_detail-use" th:href="@{/account_details}"  class="dropdown-item" >Profile</a></li>
                           <li><a class="dropdown-item" href="./projects2.html">Address</a></li>
                           <li><a class="dropdown-item" href="./projects3.html">Question</a></li>
                           <li><a class="dropdown-item" href="./projects4.html">Review</a></li>

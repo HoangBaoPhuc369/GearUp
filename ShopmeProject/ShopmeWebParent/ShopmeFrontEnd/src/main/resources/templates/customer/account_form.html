@@ -1,0 +1,59 @@
+<div class="">
+    <h2 class="mb-3 text-start">Manage Your Account</h2>
+    <p class="lead mb-6 text-start">Changes less than a minute.</p>
+    <form class="text-start mb-3" th:action="@{/update_account_details}" enctype="multipart/form-data" method="post" th:object="${customer}" >
+      <input type="hidden" th:field="*{id}" />
+      
+      <div style="display: flex;">
+        <div class="form-floating mb-4" style="width: 50%;margin-right: 10px;">
+            <input type="text" th:field="*{firstName}" class="form-control"  
+                placeholder="Name"
+                required="required" maxlength="45" minlength="2">
+            <label for="loginName">firstName</label>
+          </div> 
+          <div class="form-floating mb-4" style="width: 50%;">
+            <input type="text" class="form-control" th:field="*{lastName}"  
+                placeholder="Name"  required="required" maxlength="45" minlength="2">
+            <label for="lastName">Last Name</label>
+          </div>
+      </div>
+    
+      <div style="display: flex;">
+            <div class="form-floating password-field mb-4" style="width: 50%;margin-right: 10px;">
+                <input type="password" th:field="*{password}"  class="form-control" oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" placeholder="Password"  maxlength="15" minlength="6">
+                <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-floating password-field mb-4" style="width: 50%;">
+                <input type="password" class="form-control" oninput="checkPasswordMatch(this)" placeholder="Confirm Password" id="confirmPassword" maxlength="15" minlength="6">
+                <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                <label for="confirmPassword">Confirm Password</label>
+            </div>
+     </div>
+
+     <div class="form-floating mb-4">
+        <input type="email" th:field="*{email}" class="form-control" 
+            placeholder="Email" maxlength="45" minlength="8" readonly>
+        <label for="email">Email</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input type="text" th:field="*{phoneNumber}" class="form-control" 
+            placeholder="Phone number"  maxlength="15" minlength="8">
+        <label for="phoneNumber">Phone</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input type="text" th:field="*{addressLine1}" class="form-control" 
+            placeholder="Phone number"  maxlength="64" minlength="3">
+        <label for="phoneNumber">Address</label>
+      </div>
+
+      <div class="d-flex" style="justify-content: center;">
+        <button type="submit" class="btn btn-primary rounded-pill btn-login mb-2" style="margin-right:20px; width: 40% !important;">Update</button>
+        <button type="submit" class="btn btn-ash rounded-pill btn-login mb-2" style="width: 40% !important;">Cancel</button>
+      </div>
+    </form>
+    <!-- /form -->
+  </div>
