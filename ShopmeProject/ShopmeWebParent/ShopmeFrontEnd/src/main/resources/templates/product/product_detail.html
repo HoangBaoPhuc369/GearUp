@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: html_head('none')"></head>
+<header>
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <head th:replace="fragments :: html_head('tag')"></head>
+</header>
 
 <body>
   <div class="content-wrapper">
@@ -128,39 +131,41 @@
           <!-- /column -->
         </div>
         <!-- /.row -->
-        <ul class="nav nav-tabs nav-tabs-basic mt-12">
-          <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#tab1-1">Product Description</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#tab1-2">Product Details</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#tab1-3">Delivery</a>
-          </li>
-        </ul>
-        <!-- /.nav-tabs -->
-        <div class="tab-content mt-0 mt-md-5">
-          <div class="tab-pane fade show active" id="tab1-1">
-            <p th:utext="${product.fullDescription}"></p>
-          </div>
-          <!--/.tab-pane -->
-          <div class="tab-pane fade" id="tab1-2">
-           <th:block th:each="detail : ${product.details}">
-            <div class="d-flex">
-              <b style="margin-right: 20px;">[[${detail.name}]]: </b>
-              <p style="margin:0;">[[${detail.value}]]</p>
-            </div>
-           </th:block>
-          </div>
-          <!--/.tab-pane -->
-          <div class="tab-pane fade" id="tab1-3">
-            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-          </div>
-          <!--/.tab-pane -->
-        </div>
-        <!-- /.tab-content -->
+       
       </div>
+
+      <ul class="nav nav-tabs nav-tabs-basic mt-12">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#tab1-1">Product Description</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#tab1-2">Product Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#tab1-3">Delivery</a>
+        </li>
+      </ul>
+      <!-- /.nav-tabs -->
+      <div class="tab-content mt-0 mt-md-5" style="padding: 0;">
+        <div class="tab-pane fade show active" id="tab1-1">
+          <p th:utext="${product.fullDescription}"></p>
+        </div>
+        <!--/.tab-pane -->
+        <div class="tab-pane fade" id="tab1-2">
+         <th:block th:each="detail : ${product.details}">
+          <div class="d-flex">
+            <b style="margin-right: 20px;">[[${detail.name}]]: </b>
+            <p style="margin:0;">[[${detail.value}]]</p>
+          </div>
+         </th:block>
+        </div>
+        <!--/.tab-pane -->
+        <div class="tab-pane fade" id="tab1-3">
+          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+        </div>
+        <!--/.tab-pane -->
+      </div>
+      <!-- /.tab-content -->
       <!-- /.container -->
     </section>
     <!-- /section -->
@@ -576,8 +581,7 @@
       contextPath = "[[@{/}]]";
       productId = "[[${product.id}]]";
       var csrfHeaderName = "[[${_csrf.headerName}]]";
-	    var csrfValue = "[[${_csrf.token}]]";	
-
+	    var csrfValue = $("meta[name='_csrf']").attr("content"); ;	
     </script>
 
     <script type="text/javascript">
