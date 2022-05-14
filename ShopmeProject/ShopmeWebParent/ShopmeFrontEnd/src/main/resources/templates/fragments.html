@@ -1,55 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head th:fragment="html_head(remove)" th:remove="${remove}">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="An impressive and flawless site template that includes various UI elements and countless features, attractive ready-made blocks and rich pages, basically everything you need to create a unique and professional website.">
-    <meta name="keywords" content="bootstrap 5, business, corporate, creative, gulp, marketing, minimal, modern, multipurpose, one page, responsive, saas, sass, seo, startup, html5 template, site template">
-    <meta name="author" content="elemis">
-    <title>GearUp</title>
-    <link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
-    <link rel="stylesheet" th:href="@{/assets/css/plugins.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/container.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/grid.css}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  </head>
-  <body>
 
-    <a th:fragment="page_link(pageNum, label)"
-		class="page-link" 
-		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}}">[[${label}]]</a>
+<head th:fragment="html_head(remove)" th:remove="${remove}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="An impressive and flawless site template that includes various UI elements and countless features, attractive ready-made blocks and rich pages, basically everything you need to create a unique and professional website.">
+  <meta name="keywords"
+    content="bootstrap 5, business, corporate, creative, gulp, marketing, minimal, modern, multipurpose, one page, responsive, saas, sass, seo, startup, html5 template, site template">
+  <meta name="author" content="elemis">
+  <title>GearUp</title>
+  <link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
+  <link rel="stylesheet" th:href="@{/assets/css/plugins.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/container.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/grid.css}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <a th:fragment="page_link(moduleURL, pageNum, label)" th:title="${label}" class="page-link"
+    th:href="@{${moduleURL} + '/page/' + ${pageNum}}">
+    <span aria-hidden="true" th:if="${label == 'First' || label == 'Last' || label == 'Previous' || label == 'Next'} " >
+      <i th:if="${label == 'First'}" class="uil uil-left-arrow-to-left"></i>
+      <i th:if="${label == 'Previous'}" class="uil uil-arrow-left"></i>
+      <i th:if="${label == 'Next'}" class="uil uil-arrow-right"></i>
+      <i th:if="${label == 'Last'}" class="uil uil-arrow-to-right"></i>
+    </span>
     
-    <div th:fragment="pagination(entityName)" th:remove="tag">
-      
-      <div th:if="${totalPages > 1}">
-        <nav>
-          <ul class="pagination justify-content-center flex-wrap">
-            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-              <a th:replace="fragments :: page_link(1, 'First')"></a>
-            </li>		  
-            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-              <a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
-            </li>
-            
-            <li th:class="${currentPage != i ? 'page-item': 'page-item active'}" 
-              th:each="i : ${#numbers.sequence(1, totalPages)}">
-              <a th:replace="fragments :: page_link(${i}, ${i})"></a>
-            </li>
-            
-            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-              <a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
-            </li>
-            
-            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-              <a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
-            </li>		    
-          </ul>
-        </nav>	
-      </div>		
-      </div>
-      
-  </body>
+    <span aria-hidden="true" th:unless="${label == 'First' || label == 'Last' || label == 'Previous' || label == 'Next'} " th:title="${label}">
+      [[${label}]]
+    </span>
+  </a>
+
+  <div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
+    <div class="text-center" th:if="${totalItems > 0}" style="margin-bottom: 10px;">
+      <span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+    </div>
+    <div class="text-center" th:unless="${totalItems > 0}">
+      <span>No [[${entityName}]] found</span>
+    </div>
+
+    <div th:if="${totalPages > 1}">
+      <nav class="d-flex justify-content-center" aria-label="pagination">
+        <ul class="pagination">
+          <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+            <a th:replace="fragments :: page_link(${moduleURL}, 1, 'First')"></a>
+          </li>
+          <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+            <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage - 1}, 'Previous')"></a>
+          </li>
+
+          <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
+            th:each="i : ${#numbers.sequence(1, totalPages)}">
+            <a th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i})"></a>
+          </li>
+
+          <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+            <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage + 1}, 'Next')"></a>
+          </li>
+
+          <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+            <a th:replace="fragments :: page_link(${moduleURL}, ${totalPages}, 'Last')"></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</body>
+
 </html>

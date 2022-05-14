@@ -69,7 +69,7 @@
                           class="uil uil-heart"></i></a>
                       <a class="item-view" th:href="@{'/p/' + ${pro.alias}}" data-bs-toggle="white-tooltip"
                         title="Quick view"><i class="uil uil-eye"></i></a>
-                      <a href="#" class="item-cart"><i class="uil uil-shopping-bag"></i> Add to Cart</a>
+                      <a th:href="@{'/p/' + ${pro.alias}}" class="item-cart"><i class="uil uil-package"></i> Detail</a>
                       <!-- <span class="avatar bg-pink text-white w-10 h-10 position-absolute text-uppercase fs-13" style="top: 1rem; left: 1rem;"><span>Sale!</span></span> -->
                     </figure>
                     <div class="post-header">
@@ -95,26 +95,8 @@
               <!-- /.row -->
             </div>
             <!-- /.grid -->
-            <nav class="d-flex" aria-label="pagination">
-              <ul class="pagination">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true"><i class="uil uil-arrow-left"></i></span>
-                  </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true"><i class="uil uil-arrow-right"></i></span>
-                  </a>
-                </li>
-              </ul>
-
-              <div th:replace="fragments :: pagination('product')"></div>
-              <!-- /.pagination -->
-            </nav>
+            
+           
             <!-- /nav -->
           </div>
           <!-- /column -->
@@ -123,16 +105,12 @@
               <h4 class="widget-title mb-3">Categories</h4>
               <ul class="list-unstyled ps-0" th:each="cat : ${listCategories}">
                 <li class="mb-1">
+
                   <a th:href="@{'/c/' + ${cat.alias}}"
-                    class="align-items-center rounded link-body">[[${cat.name}]]</span>
+                    class="align-items-center rounded link-body">
+                      <img th:src="@{${cat.imagePath}}" alt="Image category" style="width: 26px;height: 26px;margin-bottom: 5px;">
+                      [[${cat.name}]]
                   </a>
-                  <!-- <div class="collapse show mt-1" id="clothing-collapse" style="">
-                        <ul class="btn-toggle-nav list-unstyled ps-2">
-                          <li><a href="#" class="link-body">Dresses</a></li>
-                          <li><a href="#" class="link-body">Knitwear</a></li>
-                          <li><a href="#" class="link-body">Jeans</a></li>
-                        </ul>
-                      </div> -->
                 </li>
               </ul>
             </div>

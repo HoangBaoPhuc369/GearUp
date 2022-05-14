@@ -99,3 +99,7 @@
     top: 10px;
     right: 12px;
 }
+
+.rte-modern.rte-desktop.rte-toolbar-default {
+	min-width: unset;
+}

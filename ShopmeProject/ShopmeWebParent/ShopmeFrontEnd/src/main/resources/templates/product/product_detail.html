@@ -77,7 +77,7 @@
             <!-- /.swiper-container -->
           </div>
           <!-- /column -->
-          <div class="col-lg-6">
+          <div class="col-lg-6 Short_description--product">
             <div class="post-header mb-5">
               <h2 class="post-title display-5">
                 <a href="./shop-product.html" class="link-dark">
@@ -105,24 +105,31 @@
               <a href="#" class="link-body ratings-wrapper"><span class="ratings four"></span><span>(3 Reviews)</span></a>
             </div>
             <!-- /.post-header -->
-            <p class="mb-6" th:utext="${product.shortDescription}"></p>
+           <div>
+            <p class="mb-6 " th:utext="${product.shortDescription}">
 
+            </p>
+           </div>
+
+            
             <th:block th:if="${product.inStock}">
-              <div>
-                <div th:replace="cart/quantity_control :: quantity_control(1, ${product.id})"></div>
-                <!--/.form-select-wrapper -->
-              </div>
-              <div class="row">
-                <div class="col-lg-9 d-flex flex-row pt-2" style="padding-left: 0;">
-                  
-                  <div class="flex-grow-1 mx-2">
-                    <input id="buttonAdd2Cart" type="button" class="btn btn-primary btn-icon btn-icon-start rounded w-100 flex-grow-1" value="Add to cart" />
-                  </div>
-                  <div>
-                    <button class="btn btn-block btn-red btn-icon rounded px-3 w-100 h-100"><i class="uil uil-heart"></i></button>
-                  </div>
+              <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">
+                  <div th:replace="cart/quantity_control :: quantity_control(1, ${product.id})"></div>
+                  <!--/.form-select-wrapper -->
                 </div>
-                <!-- /column -->
+                <div class="row">
+                  <div class="col-lg-9 d-flex flex-row pt-2" style="padding-left: 0;">
+                    
+                    <div class="flex-grow-1 mx-2">
+                      <input id="buttonAdd2Cart" type="button" class="btn btn-primary btn-icon btn-icon-start rounded w-100 flex-grow-1" value="Add to cart" />
+                    </div>
+                    <div>
+                      <button class="btn btn-block btn-red btn-icon rounded px-3 w-100 h-100"><i class="uil uil-heart"></i></button>
+                    </div>
+                  </div>
+                  <!-- /column -->
+                </div>
               </div>
               <!-- /.row -->
             </th:block>
@@ -545,6 +552,20 @@
     <!-- /section -->
   </div>
 
+  <div class="modal fade " id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content text-center">
+        <div class="modal-body">
+          
+        </div>
+        <!--/.modal-content -->
+      </div>
+      <!--/.modal-body -->
+    </div>
+    <!--/.modal-dialog -->
+  </div>
+  <!--/.modal -->
+
   <!-- Modal -->
   <div class="modal fade modal-bottom-center" id="modalDialog" tabindex="-1">
     <div class="modal-dialog modal-xl">
@@ -592,6 +613,19 @@
         });
       });
     </script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    $("#link_detail-use").on("click", function (e) {
+      e.preventDefault();
+      linkDetailURL = $(this).attr("href");
+      $("#detailModal").modal("show").find(".modal-body").load(linkDetailURL);
+    });
+  });
+
+</script>
+
 </body>
 
 </html>

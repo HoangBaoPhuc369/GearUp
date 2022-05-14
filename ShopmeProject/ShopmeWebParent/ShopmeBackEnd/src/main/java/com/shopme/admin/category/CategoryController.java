@@ -87,8 +87,7 @@ public class CategoryController {
 			String uploadDir = "../category-images/" + savedCategory.getId();
 			
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//			AmazonS3Util.removeFolder(uploadDir);
-//			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
+
 		} else {
 			service.save(category);
 		}

@@ -1,159 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments :: html_head('none')"></head>
+    <head th:replace="fragments :: html_head('none')"></head>
 
 <body>
+    <th:block sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+            <input type="submit" value="Logout" />
+        </form>
+    </th:block>
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show toast-msg" role="alert">
+        <span class="alert-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+        <span class="alert-text"><strong style="margin-right: 4px;">Success!</strong>[[${message}]]</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="content-wrapper">
-        <header class="wrapper bg-light">
-            <nav class="navbar navbar-expand-lg center-nav navbar-light navbar-bg-light">
-                <div class="container flex-lg-row flex-nowrap align-items-center" style="height: 95.5px;">
-                    <div class="navbar-brand w-100">
-                        <a href="./index.html">
-                            <img th:src="@{/assets/img/logo.png}" srcset="@{/assets/img/logo@2x.png 2x}" alt="" />
-                        </a>
-                    </div>
-                    <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
-                        <div class="offcanvas-header d-lg-none">
-                            <h3 class="text-white fs-30 mb-0">Sandbox</h3>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-
-                        <!-- /.offcanvas-body -->
-                    </div>
-                    <!-- /.navbar-collapse -->
-                    <div class="navbar-other w-100 d-flex ms-auto">
-                        <ul class="navbar-nav flex-row align-items-center ms-auto">
-                            <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-search"><i class="uil uil-search"></i></a></li>
-                            <li class="nav-item">
-                                <a class="nav-link position-relative d-flex flex-row align-items-center"
-                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart">
-                                    <i class="uil uil-shopping-cart"></i>
-                                    <span class="badge badge-cart bg-primary">3</span>
-                                </a>
-                            </li>
-                            <li class="nav-item d-lg-none">
-                                <button class="hamburger offcanvas-nav-btn"><span></span></button>
-                            </li>
-                        </ul>
-                        <!-- /.navbar-nav -->
-                    </div>
-                    <!-- /.navbar-other -->
-                </div>
-                <!-- /.container -->
-            </nav>
-            <!-- /.navbar -->
-            <div class="offcanvas offcanvas-end bg-light" id="offcanvas-cart" data-bs-scroll="true">
-                <div class="offcanvas-header">
-                    <h3 class="mb-0">Your Cart</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body d-flex flex-column">
-                    <div class="shopping-cart">
-                        <div class="shopping-cart-item d-flex justify-content-between mb-4">
-                            <div class="d-flex flex-row">
-                                <figure class="rounded w-17"><a href="./shop-product.html"><img
-                                            src="./assets/img/photos/sth1.jpg"
-                                            srcset="./assets/img/photos/sth1@2x.jpg 2x" alt="" /></a></figure>
-                                <div class="w-100 ms-4">
-                                    <h3 class="post-title fs-16 lh-xs mb-1"><a href="./shop-product.html"
-                                            class="link-dark">Nike Air Sneakers</a></h3>
-                                    <p class="price fs-sm"><del><span class="amount">$55.00</span></del> <ins><span
-                                                class="amount">$45.99</span></ins></p>
-                                    <div class="form-select-wrapper">
-                                        <select class="form-select form-select-sm">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <!--/.form-select-wrapper -->
-                                </div>
-                            </div>
-                            <div class="ms-2"><a href="#" class="link-dark"><i class="uil uil-trash-alt"></i></a></div>
-                        </div>
-                        <!--/.shopping-cart-item -->
-                        <div class="shopping-cart-item d-flex justify-content-between mb-4">
-                            <div class="d-flex flex-row">
-                                <figure class="rounded w-17"><a href="./shop-product.html"><img
-                                            src="./assets/img/photos/sth2.jpg"
-                                            srcset="./assets/img/photos/sth2@2x.jpg 2x" alt="" /></a></figure>
-                                <div class="w-100 ms-4">
-                                    <h3 class="post-title fs-16 lh-xs mb-1"><a href="./shop-product.html"
-                                            class="link-dark">Colorful Sneakers</a></h3>
-                                    <p class="price fs-sm"><span class="amount">$45.00</span></p>
-                                    <div class="form-select-wrapper">
-                                        <select class="form-select form-select-sm">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <!--/.form-select-wrapper -->
-                                </div>
-                            </div>
-                            <div class="ms-2"><a href="#" class="link-dark"><i class="uil uil-trash-alt"></i></a></div>
-                        </div>
-                        <!--/.shopping-cart-item -->
-                        <div class="shopping-cart-item d-flex justify-content-between mb-4">
-                            <div class="d-flex flex-row">
-                                <figure class="rounded w-17"><a href="./shop-product.html"><img
-                                            src="./assets/img/photos/sth3.jpg"
-                                            srcset="./assets/img/photos/sth3@2x.jpg 2x" alt="" /></a></figure>
-                                <div class="w-100 ms-4">
-                                    <h3 class="post-title fs-16 lh-xs mb-1"><a href="./shop-product.html"
-                                            class="link-dark">Polaroid Camera</a></h3>
-                                    <p class="price fs-sm"><span class="amount">$45.00</span></p>
-                                    <div class="form-select-wrapper">
-                                        <select class="form-select form-select-sm">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <!--/.form-select-wrapper -->
-                                </div>
-                            </div>
-                            <div class="ms-2"><a href="#" class="link-dark"><i class="uil uil-trash-alt"></i></a></div>
-                        </div>
-                        <!--/.shopping-cart-item -->
-                    </div>
-                    <!-- /.shopping-cart-->
-                    <div class="offcanvas-footer flex-column text-center">
-                        <div class="d-flex w-100 justify-content-between mb-4">
-                            <span>Subtotal:</span>
-                            <span class="h6 mb-0">$135.99</span>
-                        </div>
-                        <a href="#" class="btn btn-primary btn-icon btn-icon-start rounded w-100 mb-4"><i
-                                class="uil uil-credit-card fs-18"></i> Checkout</a>
-                        <p class="fs-14 mb-0">Free shipping on all orders over $50</p>
-                    </div>
-                    <!-- /.offcanvas-footer-->
-                </div>
-                <!-- /.offcanvas-body -->
-            </div>
-            <!-- /.offcanvas -->
-            <div class="offcanvas offcanvas-top bg-light" id="offcanvas-search" data-bs-scroll="true">
-                <div class="container d-flex flex-row py-6">
-                    <form class="search-form w-100">
-                        <input id="search-form" type="text" class="form-control"
-                            placeholder="Type keyword and hit enter">
-                    </form>
-                    <!-- /.search-form -->
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <!-- /.container -->
-            </div>
-            <!-- /.offcanvas -->
-        </header>
+        <div th:replace="header :: header"></div>
 
         <!-- /header -->
         <section class="wrapper bg-gray">
@@ -207,20 +71,23 @@
                     <!--/column -->
                 </div>
                 <!--/.row -->
-                <div class="grid grid-view projects-masonry shop mb-13">
-                    <div class="row gx-md-8 gy-10 gy-md-13 isotope">
+                <div class="grid projects-masonry shop mb-13">
+                    <div class="row">
                         <th:block th:each="product : ${listProducts}">
-                            <div class="project item col-md-6 col-xl-4">
+                            <input type="hidden" name="productID" th:value="${product.id}">
+                            <div class="project item c-4" style="margin-top: 4rem;">
                                 <figure class="rounded mb-6">
                                     <!-- th:attr="srcset=@{${product.mainImagePath}} + '2x'" -->
                                     <img th:src="@{${product.mainImagePath}}"
-                                        th:attr="srcset=|@{${product.mainImagePath}} 2x|" style="height: 433px !important;" alt="" />
+                                        th:attr="srcset=|@{${product.mainImagePath}} 2x|"
+                                        style="height: 433px !important;" alt="" />
                                     <a class="item-like" href="#" data-bs-toggle="white-tooltip"
                                         title="Add to wishlist"><i class="uil uil-heart"></i></a>
-                                    <a class="item-view" href="#" data-bs-toggle="white-tooltip" title="Quick view"><i
+                                    <a class="item-view" th:href="@{'/p/' + ${product.alias}}"
+                                        data-bs-toggle="white-tooltip" title="Quick view"><i
                                             class="uil uil-eye"></i></a>
-                                    <a href="#" class="item-cart"><i class="uil uil-shopping-bag"></i> Add to Cart</a>
-                                    <span
+                                    <a  th:href="@{'/p/' + ${product.alias}}" class="item-cart"><i class="uil uil-package"></i> Detail</a>
+                                    <span th:if="${product.discountPercent > 0}"
                                         class="avatar bg-pink text-white w-10 h-10 position-absolute text-uppercase fs-13"
                                         style="top: 1rem; left: 1rem;"><span>Sale!</span></span>
                                 </figure>
@@ -229,13 +96,18 @@
                                         <div class="post-category text-ash mb-0">[[${product.category.name}]]</div>
                                         <span class="ratings five"></span>
                                     </div>
-                                    <h2 class="post-title h3 fs-22"><a href="./shop-product.html" class="link-dark">[[${product.name}]]</a></h2>
+                                    <h2 class="post-title h3 fs-22" style="height: 61.6px;"><a
+                                            th:href="@{'/p/' + ${product.alias}}"
+                                            class="link-dark format-title">[[${product.name}]]</a></h2>
                                     <p class="price" th:if="${product.discountPercent <= 0}">
-                                        <ins><span class="amount">[[${product.price}]] VND</span></ins>
+                                        <ins><span style="font-size: 1rem;" class="amount">[[${product.price}]]
+                                                VND</span></ins>
                                     </p>
                                     <p class="price" th:if="${product.discountPercent > 0}">
-                                        <del><span class="amount">[[${product.price}]] VND</span></del>
-                                        <ins><span class="amount">[[${product.discountPrice}]]</span></ins> 
+                                        <del><span style="font-size: 1rem;" class="amount">[[${product.price}]]
+                                                VND</span></del>
+                                        <ins><span style="font-size: 1rem;"
+                                                class="amount">[[${product.discountPrice}]]</span></ins>
                                     </p>
                                 </div>
                                 <!-- /.post-header -->
@@ -247,26 +119,9 @@
                     <!-- /.row -->
                 </div>
                 <!-- /.grid -->
-                <nav class="d-flex justify-content-center" aria-label="pagination">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true"><i class="uil uil-arrow-left"></i></span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true"><i class="uil uil-arrow-right"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.pagination -->
-                </nav>
 
-                <div th:replace="fragments :: pagination('/c/' + ${category.alias})"></div>
+                <!-- /.pagination -->
+                <div th:replace="fragments :: pagination('/c/' + ${category.alias}, 'product')"></div>
                 <!-- /nav -->
             </div>
             <!-- /.container -->
@@ -324,10 +179,39 @@
         </section>
         <!-- /section -->
     </div>
+    <!-- Modal -->
+    <div class="modal fade modal-bottom-center" id="modalDialog" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-6">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-8 mb-4 mb-lg-0 my-auto align-items-center">
+                            <h4 class="mb-2" id="modalTitle"></h4>
+                            <p class="mb-0" id="modalBody"></p>
+                        </div>
+                        <!--/column -->
+                        <div class="col-md-5 col-lg-4 text-lg-end my-auto">
+                            <a href="#" class="btn btn-primary rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">I Understand</a>
+                        </div>
+                        <!--/column -->
+                    </div>
+                    <!--/.row -->
+                </div>
+                <!--/.modal-body -->
+            </div>
+            <!--/.modal-content -->
+        </div>
+        <!--/.modal-dialog -->
+    </div>
     <!-- /.content-wrapper -->
     <div th:replace="footer :: footer"></div>
     <script th:src="@{/assets/js/plugins.js}"></script>
     <script th:src="@{/assets/js/theme.js}"></script>
+    <script th:src="@{/assets/js/add_to_cart_index.js}"></script>
+    <script th:src="@{/assets/js/common_modal.js}"></script>
+
+   
 </body>
 
 </html>
