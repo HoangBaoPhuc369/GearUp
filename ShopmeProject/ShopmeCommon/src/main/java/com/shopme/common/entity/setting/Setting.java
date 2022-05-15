@@ -7,6 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "settings")
 public class Setting {
@@ -18,7 +20,7 @@ public class Setting {
 	private String value;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(length = 45, nullable = false)
+	@Column(columnDefinition="LONGTEXT", nullable = false)
 	private SettingCategory category;
 
 	public Setting() {

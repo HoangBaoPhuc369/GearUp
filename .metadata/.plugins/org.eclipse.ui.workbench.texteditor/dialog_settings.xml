@@ -6,6 +6,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="OAuth2User"/>
 		<list key="findhistory">
+			<item value="varchar"/>
 			<item value="You must login to add this product to cart"/>
 			<item value="update_account_details"/>
 			<item value="oauth2User"/>
@@ -13,7 +14,6 @@
 			<item value="SettingCategory"/>
 			<item value="MAIL_TEMPLATES"/>
 			<item value="WebSecurityConfigurerAdapter"/>
-			<item value="springSecurityFilterChain"/>
 		</list>
 		<list key="replacehistory">
 		</list>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-    <fullyQualifiedTypeName name="org.hibernate.annotations.common.util.impl.LoggerFactory"/>
     <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
     <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
@@ -60,4 +58,6 @@
     <fullyQualifiedTypeName name="org.springframework.security.authentication.UsernamePasswordAuthenticationToken"/>
     <fullyQualifiedTypeName name="org.springframework.security.authentication.RememberMeAuthenticationToken"/>
     <fullyQualifiedTypeName name="com.shopme.security.CustomerUserDetails"/>
+    <fullyQualifiedTypeName name="org.hibernate.annotations.Type"/>
+    <fullyQualifiedTypeName name="javax.persistence.Lob"/>
 </qualifiedTypeNameHistroy>
