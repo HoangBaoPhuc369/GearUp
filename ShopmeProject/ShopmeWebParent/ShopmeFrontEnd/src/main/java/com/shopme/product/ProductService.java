@@ -26,6 +26,13 @@ public class ProductService {
 		return repo.listByCategory(categoryId, categoryIdMatch, pageable);
 	}
 	
+	public Page<Product> ListAllProduct(int pageNum) {
+		
+		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
+		
+		return repo.ListAllProducts(pageable);
+	}
+	
 	public List<Product> listAll() {
 		return (List<Product>) repo.findAlls();
 	}

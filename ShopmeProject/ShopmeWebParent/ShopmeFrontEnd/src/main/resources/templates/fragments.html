@@ -23,7 +23,7 @@
 <body>
 
   <a th:fragment="page_link(moduleURL, pageNum, label)" th:title="${label}" class="page-link"
-    th:href="@{${moduleURL} + '/page/' + ${pageNum}}">
+  th:href="@{${moduleURL} + '/page/' + ${pageNum} + ${keyword != null ? '?keyword=' + keyword : ''}}">
     <span aria-hidden="true" th:if="${label == 'First' || label == 'Last' || label == 'Previous' || label == 'Next'} " >
       <i th:if="${label == 'First'}" class="uil uil-left-arrow-to-left"></i>
       <i th:if="${label == 'Previous'}" class="uil uil-arrow-left"></i>
